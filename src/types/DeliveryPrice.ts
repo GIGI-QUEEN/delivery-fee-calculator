@@ -1,7 +1,6 @@
 type DeliveryPrice = {
-  finalPrice: number;
+  totalPrice: number;
   surcharge: number;
   itemsFee: number;
   distanceFee: number;
-  fridayRush: boolean;
 };

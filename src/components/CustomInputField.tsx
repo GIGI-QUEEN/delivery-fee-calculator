@@ -10,21 +10,25 @@ interface ICustomTextInputField {
   placeholder: string;
   inputAdornment?: string;
   setStateValue: React.Dispatch<React.SetStateAction<number>>;
+  dataTestId?: string;
 }
 
 const CustomInputField: FC<ICustomTextInputField> = ({
   placeholder,
   inputAdornment,
   setStateValue,
+  dataTestId: testId,
 }) => {
   return (
-    <FormControl sx={{ m: 1 }} variant="outlined">
+    <FormControl sx={{ width: "100%" }} variant="outlined">
       <InputLabel htmlFor="outlined-adornment-password">
         {placeholder}
       </InputLabel>
       <OutlinedInput
         type="number"
-        id="outlined-adornment-password"
+        inputProps={{
+          "data-test-id": testId, //adding custom attribute to the input field inside OutlinedInput
+        }}
         onChange={(e) => setStateValue(Number(e.target.value))}
         endAdornment={
           <InputAdornment position="end">{inputAdornment}</InputAdornment>

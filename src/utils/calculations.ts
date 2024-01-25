@@ -5,20 +5,23 @@ export const calculateDeliveryPrice = (
   numberOfItems: number,
   distance: number,
   dateTime: Dayjs
-): number => {
+): DeliveryPrice => {
   const smallOrderSurcharge = calculateSmallOrderSurcharge(cartValue);
-  const extraItemsFee = calculateExtraItemsFee(numberOfItems);
+  const extraItemsFee = calculateItemsFee(numberOfItems);
   const distanceFee = calculateDistanceFee(distance);
-  // const isFridayRush = calculateFridayRush(dateTime);
   const fridayRush = isFridayRush(dateTime);
+  const finalPrice = smallOrderSurcharge + extraItemsFee + distanceFee;
+  let deliveryPrice: DeliveryPrice = {
+    totalPrice: finalPrice,
+    surcharge: smallOrderSurcharge,
+    itemsFee: extraItemsFee,
+    distanceFee: distanceFee,
+  };
   if (fridayRush) {
-    return (smallOrderSurcharge + extraItemsFee + distanceFee) * 1.2;
+    deliveryPrice.totalPrice *= 1.2;
+    return deliveryPrice;
   }
-  console.log(
-    `s: ${smallOrderSurcharge}, e: ${extraItemsFee}, d: ${distanceFee}`
-  );
-
-  return smallOrderSurcharge + extraItemsFee + distanceFee;
+  return deliveryPrice;
 };
 
 //If the cart value is less than 10€, a small order surcharge is added to the delivery price.
@@ -39,7 +42,7 @@ export const calculateSmallOrderSurcharge = (cartValue: number): number => {
 //Example 4: If the number of items is 13, 5,70€ surcharge is added ((9 * 50 cents) + 1,20€)
 //Example 5: If the number of items is 14, 6,20€ surcharge is added ((10 * 50 cents) + 1,20€)
 
-export const calculateExtraItemsFee = (numberOfItems: number): number => {
+export const calculateItemsFee = (numberOfItems: number): number => {
   const bulk = 1.2;
   const feeMultiplier = 0.5;
 
@@ -94,11 +97,7 @@ export const isFridayRush = (dateTime: Dayjs): boolean => {
   const minute = dateTime.minute();
   console.log(`day: ${day}, hour: ${hour}, minute: ${minute}`);
   if (day === 5 && hour >= 15 && hour + minute / 60 <= 19) {
-    console.log("firdayRush");
-
     return true;
   }
-  console.log("no firdayRush");
-
   return false;
 };

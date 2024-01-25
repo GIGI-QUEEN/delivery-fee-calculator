@@ -13,8 +13,20 @@ export const CustomDateTimePicker: FC<ICustomDateTimePicker> = ({
   setTime,
 }) => {
   return (
-    <FormControl sx={{ m: 1 }}>
+    <FormControl
+      sx={{
+        width: "100%",
+      }}
+    >
       <DateTimePicker
+        data-test-id="orderTime"
+        slotProps={{
+          textField: {
+            inputProps: {
+              "data-test-id": "orderTime",
+            },
+          },
+        }}
         label="time"
         value={dayjs(time)}
         onChange={(value) => setTime(dayjs(value))}

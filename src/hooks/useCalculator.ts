@@ -1,39 +1,41 @@
 import dayjs, { Dayjs } from "dayjs";
 import { useState } from "react";
-import { calculateDeliveryPrice } from "../utils/utils";
+import { calculateDeliveryPrice } from "../utils/calculations";
 
 export const useCalculator = () => {
   const [cartValue, setCartValue] = useState<number>(0);
-  const [amountOfItems, setAmountOfItems] = useState<number>(0);
+  const [numberOfItems, setNumberOfItems] = useState<number>(0);
   const [distance, setDistance] = useState<number>(0); // distance in meters
-  //const [dateTime, setDateTime] = useState<Date>();
   const [surcharge, setSurcharge] = useState<number>(0);
-  const [extraItemsFee, setExtraItemsFee] = useState<number>(0);
-  const [deliveryPrice, setDeliveryPrice] = useState<number>(0);
+  const [itemsFee, setItemsFee] = useState<number>(0);
   const [time, setTime] = useState<Dayjs>(dayjs());
+  const [deliveryPrice, setDeliveryPrice] = useState<DeliveryPrice>({
+    totalPrice: 0,
+    surcharge: 0,
+    itemsFee: 0,
+    distanceFee: 0,
+  });
 
   const handleClick = () => {
-    //isFridayRush(time);
     const price = calculateDeliveryPrice(
       cartValue,
-      amountOfItems,
+      numberOfItems,
       distance,
       time
     );
     setDeliveryPrice(price);
-    console.log(`price: ${price}`);
   };
   return {
     cartValue,
     setCartValue,
-    amountOfItems,
-    setAmountOfItems,
+    numberOfItems,
+    setNumberOfItems,
     distance,
     setDistance,
     surcharge,
     setSurcharge,
-    extraItemsFee,
-    setExtraItemsFee,
+    itemsFee,
+    setItemsFee,
     deliveryPrice,
     setDeliveryPrice,
     time,

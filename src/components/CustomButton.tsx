@@ -9,7 +9,17 @@ interface ICustomButtonProps {
 
 const CustomButton: FC<ICustomButtonProps> = ({ title, handleClick }) => {
   return (
-    <Button variant="contained" onClick={handleClick}>
+    <Button
+      variant="contained"
+      onClick={handleClick}
+      //color="primary"
+      sx={{
+        fontWeight: "bold",
+        // width: "200px",
+        //backgroundColor: "#22c3e4",
+        // background: "linear-gradient(#22c3e4,#81DEFA)",
+      }}
+    >
       {title}
     </Button>
   );

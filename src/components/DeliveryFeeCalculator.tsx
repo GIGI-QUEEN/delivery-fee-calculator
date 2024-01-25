@@ -1,33 +1,18 @@
-import {
-  Box,
-  Container,
-  Dialog,
-  DialogTitle,
-  IconButton,
-  Paper,
-  Typography,
-} from "@mui/material";
+import { Paper, Typography } from "@mui/material";
 import CustomButton from "./CustomButton";
 import CustomInputField from "./CustomInputField";
 import { CustomDateTimePicker } from "./CustomDatePicker";
 import { useCalculator } from "../hooks/useCalculator";
-import InfoIcon from "@mui/icons-material/Info";
 import { useDialog } from "../hooks/useDialog";
 import InfoDialog from "./InfoDialog";
-const euro = "\u20ac";
+import { Price } from "./Price";
+import { euroSign } from "../constants/constants";
 
 const DeliveryFeeCalculator = () => {
   const {
-    cartValue,
     setCartValue,
-    amountOfItems,
-    setAmountOfItems,
-    distance,
+    setNumberOfItems,
     setDistance,
-    surcharge,
-    setSurcharge,
-    extraItemsFee,
-    setExtraItemsFee,
     time,
     setTime,
     deliveryPrice,
@@ -41,55 +26,45 @@ const DeliveryFeeCalculator = () => {
         elevation={3}
         sx={{
           padding: "25px",
-          width: "500px",
-          height: "500px",
           display: "flex",
           flexDirection: "column",
-          gap: "10px",
-          //backgroundColor: "rgb(255,255,255, 0.5)",
+          justifyContent: "center",
+          alignItems: "center",
+          gap: "25px",
           borderRadius: "15px",
         }}
       >
+        <Typography variant="h4" sx={{ fontWeight: "bold" }}>
+          Delivery fee calculator
+        </Typography>
         <CustomInputField
+          dataTestId="cartValue"
           placeholder="cart value"
-          inputAdornment={euro}
+          inputAdornment={euroSign}
           setStateValue={setCartValue}
         />
         <CustomInputField
+          dataTestId="deliveryDistance"
           placeholder="delivery distance"
           inputAdornment="m"
           setStateValue={setDistance}
         />
         <CustomInputField
-          placeholder="amount of items"
-          setStateValue={setAmountOfItems}
+          dataTestId="numberOfItems"
+          placeholder="number of items"
+          setStateValue={setNumberOfItems}
         />
         <CustomDateTimePicker time={time} setTime={setTime} />
-        <CustomButton title={"confirm"} handleClick={handleClick} />
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <Box
-            sx={{
-              border: "1px solid grey",
-              borderRadius: "5px",
-              width: "200px",
-            }}
-          >
-            <Typography sx={{ fontWeight: "bold" }}>
-              Delivery price: {deliveryPrice}
-            </Typography>
-          </Box>
-          <IconButton onClick={handleOpen}>
-            <InfoIcon color="primary" />
-          </IconButton>
-        </Box>
+        <CustomButton title={"calculate"} handleClick={handleClick} />
+        {deliveryPrice.totalPrice !== 0 ? (
+          <Price deliveryPrice={deliveryPrice} handleOpen={handleOpen} />
+        ) : null}
       </Paper>
-      <InfoDialog open={open} handleClose={handleClose} />
+      <InfoDialog
+        open={open}
+        handleClose={handleClose}
+        deliveryPrice={deliveryPrice}
+      />
     </>
   );
 };

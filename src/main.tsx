@@ -8,11 +8,15 @@ import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { ThemeProvider } from "@emotion/react";
+import { theme } from "./theme.ts";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <App />
-    </LocalizationProvider>
+    <ThemeProvider theme={theme}>
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <App />
+      </LocalizationProvider>
+    </ThemeProvider>
   </React.StrictMode>
 );
