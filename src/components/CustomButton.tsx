@@ -5,13 +5,19 @@ interface ICustomButtonProps {
   title: string;
   // handleClick: React.MouseEventHandler<HTMLButtonElement> | undefined;
   handleClick: () => void;
+  disabled: boolean;
 }
 
-const CustomButton: FC<ICustomButtonProps> = ({ title, handleClick }) => {
+const CustomButton: FC<ICustomButtonProps> = ({
+  title,
+  handleClick,
+  disabled,
+}) => {
   return (
     <Button
       variant="contained"
       onClick={handleClick}
+      disabled={disabled}
       //color="primary"
       sx={{
         fontWeight: "bold",

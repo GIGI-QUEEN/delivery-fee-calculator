@@ -1,5 +1,7 @@
 import { Dayjs } from "dayjs";
 
+//using toFixed() on floats to avoid weird results
+
 export const calculateDeliveryPrice = (
   cartValue: number,
   numberOfItems: number,
@@ -10,17 +12,23 @@ export const calculateDeliveryPrice = (
   const extraItemsFee = calculateItemsFee(numberOfItems);
   const distanceFee = calculateDistanceFee(distance);
   const fridayRush = isFridayRush(dateTime);
-  const finalPrice = smallOrderSurcharge + extraItemsFee + distanceFee;
+  const totalPrice =
+    ((smallOrderSurcharge + extraItemsFee + distanceFee) * 100) / 100;
   let deliveryPrice: DeliveryPrice = {
-    totalPrice: finalPrice,
+    totalPrice: totalPrice,
     surcharge: smallOrderSurcharge,
     itemsFee: extraItemsFee,
     distanceFee: distanceFee,
+    fridayRush: fridayRush,
   };
-  if (fridayRush) {
-    deliveryPrice.totalPrice *= 1.2;
-    return deliveryPrice;
+  if (fridayRush)
+    deliveryPrice.totalPrice = Number((totalPrice * 1.2).toFixed(2));
+  if (deliveryPrice.totalPrice >= 15) deliveryPrice.totalPrice = 15;
+  if (cartValue >= 200) {
+    deliveryPrice.totalPrice = 0;
+    deliveryPrice.isDeliveryFree = true;
   }
+
   return deliveryPrice;
 };
 
@@ -29,7 +37,7 @@ export const calculateDeliveryPrice = (
 //For example if the cart value is 8.90€, the surcharge will be 1.10€.
 export const calculateSmallOrderSurcharge = (cartValue: number): number => {
   if (cartValue < 10) {
-    return (10 * 100 - cartValue * 100) / 100;
+    return Number((10 - cartValue).toFixed(2));
   }
   return 0;
 };
@@ -67,8 +75,6 @@ export const calculateDistanceFee = (distance: number): number => {
     return baseFee;
   }
   const pureDistance = distance - 1000;
-  //console.log("initial distance: ", distance);
-  //console.log("pure distance: ", pureDistance);
   const multiplier = Math.ceil(pureDistance / 500);
 
   // console.log("distance price: ", baseFee + multiplier);
@@ -84,8 +90,6 @@ export const calculateFridayRush = (dateTime: Date): boolean => {
   const hours = dateTime.getHours();
   const minutes = dateTime.getMinutes();
   if (day === 5 && hours >= 15 && hours + minutes / 60 <= 19) {
-    //console.log("firdayRush");
-
     return true;
   }
   return false;
@@ -95,7 +99,6 @@ export const isFridayRush = (dateTime: Dayjs): boolean => {
   const day = dateTime.day();
   const hour = dateTime.hour();
   const minute = dateTime.minute();
-  console.log(`day: ${day}, hour: ${hour}, minute: ${minute}`);
   if (day === 5 && hour >= 15 && hour + minute / 60 <= 19) {
     return true;
   }

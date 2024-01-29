@@ -3,4 +3,6 @@ type DeliveryPrice = {
   surcharge: number;
   itemsFee: number;
   distanceFee: number;
+  fridayRush?: boolean;
+  isDeliveryFree?: boolean;
 };

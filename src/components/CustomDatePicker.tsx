@@ -19,7 +19,6 @@ export const CustomDateTimePicker: FC<ICustomDateTimePicker> = ({
       }}
     >
       <DateTimePicker
-        data-test-id="orderTime"
         slotProps={{
           textField: {
             inputProps: {

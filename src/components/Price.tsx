@@ -21,6 +21,7 @@ export const Price: FC<IPrice> = ({ deliveryPrice, handleOpen }) => {
         Delivery price:
         <span data-test-id="fee">{deliveryPrice.totalPrice}</span>
         {euroSign}
+        {deliveryPrice.isDeliveryFree ? "(Free!)" : null}
       </Typography>
 
       <IconButton onClick={handleOpen}>

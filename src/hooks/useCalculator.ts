@@ -1,5 +1,5 @@
 import dayjs, { Dayjs } from "dayjs";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { calculateDeliveryPrice } from "../utils/calculations";
 
 export const useCalculator = () => {
@@ -9,6 +9,8 @@ export const useCalculator = () => {
   const [surcharge, setSurcharge] = useState<number>(0);
   const [itemsFee, setItemsFee] = useState<number>(0);
   const [time, setTime] = useState<Dayjs>(dayjs());
+  const [error, setError] = useState<boolean>(false);
+  const [disabled, setDisabled] = useState<boolean>(false);
   const [deliveryPrice, setDeliveryPrice] = useState<DeliveryPrice>({
     totalPrice: 0,
     surcharge: 0,
@@ -16,7 +18,28 @@ export const useCalculator = () => {
     distanceFee: 0,
   });
 
+  useEffect(() => {
+    if (checkInputErrors()) {
+      setDisabled(true);
+    } else {
+      setDisabled(false);
+    }
+  }, [cartValue, distance, numberOfItems]);
+
+  const checkInputErrors = (): boolean => {
+    if (cartValue === 0 || distance === 0 || numberOfItems === 0) {
+      return true;
+    }
+
+    return false;
+  };
+
   const handleClick = () => {
+    if (checkInputErrors()) {
+      setError(true);
+      return;
+    }
+
     const price = calculateDeliveryPrice(
       cartValue,
       numberOfItems,
@@ -24,13 +47,11 @@ export const useCalculator = () => {
       time
     );
     setDeliveryPrice(price);
+    setError(false);
   };
   return {
-    cartValue,
     setCartValue,
-    numberOfItems,
     setNumberOfItems,
-    distance,
     setDistance,
     surcharge,
     setSurcharge,
@@ -41,5 +62,8 @@ export const useCalculator = () => {
     time,
     setTime,
     handleClick,
+    error,
+    cartValue,
+    disabled,
   };
 };

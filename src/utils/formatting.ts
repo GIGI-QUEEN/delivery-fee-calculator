@@ -8,6 +8,8 @@ export const formatDeliveryPriceKey = (key: string): string => {
       return "Items fee";
     case "distanceFee":
       return "Distance fee";
+    case "fridayRush":
+      return "Friday rush";
     default:
       return key;
   }

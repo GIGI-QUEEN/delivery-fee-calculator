@@ -1,5 +1,6 @@
 import {
   FormControl,
+  FormHelperText,
   InputAdornment,
   InputLabel,
   OutlinedInput,
@@ -11,6 +12,8 @@ interface ICustomTextInputField {
   inputAdornment?: string;
   setStateValue: React.Dispatch<React.SetStateAction<number>>;
   dataTestId?: string;
+  required: boolean;
+  error: boolean;
 }
 
 const CustomInputField: FC<ICustomTextInputField> = ({
@@ -18,6 +21,8 @@ const CustomInputField: FC<ICustomTextInputField> = ({
   inputAdornment,
   setStateValue,
   dataTestId: testId,
+  required,
+  error,
 }) => {
   return (
     <FormControl sx={{ width: "100%" }} variant="outlined">
@@ -25,9 +30,11 @@ const CustomInputField: FC<ICustomTextInputField> = ({
         {placeholder}
       </InputLabel>
       <OutlinedInput
+        error={error}
+        required={required}
         type="number"
         inputProps={{
-          "data-test-id": testId, //adding custom attribute to the input field inside OutlinedInput
+          "data-test-id": testId, //adding custom attribute with test-id to the input field inside OutlinedInput
         }}
         onChange={(e) => setStateValue(Number(e.target.value))}
         endAdornment={
@@ -35,6 +42,7 @@ const CustomInputField: FC<ICustomTextInputField> = ({
         }
         label={placeholder}
       />
+      {error ? <FormHelperText>Please enter value</FormHelperText> : null}
     </FormControl>
   );
 };

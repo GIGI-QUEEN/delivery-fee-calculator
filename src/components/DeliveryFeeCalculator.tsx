@@ -17,6 +17,8 @@ const DeliveryFeeCalculator = () => {
     setTime,
     deliveryPrice,
     handleClick,
+    error,
+    disabled,
   } = useCalculator();
   const { open, handleOpen, handleClose } = useDialog();
 
@@ -42,23 +44,35 @@ const DeliveryFeeCalculator = () => {
           placeholder="cart value"
           inputAdornment={euroSign}
           setStateValue={setCartValue}
+          required={true}
+          error={error}
         />
         <CustomInputField
           dataTestId="deliveryDistance"
           placeholder="delivery distance"
           inputAdornment="m"
           setStateValue={setDistance}
+          required={true}
+          error={error}
         />
         <CustomInputField
           dataTestId="numberOfItems"
           placeholder="number of items"
           setStateValue={setNumberOfItems}
+          required={true}
+          error={error}
         />
         <CustomDateTimePicker time={time} setTime={setTime} />
-        <CustomButton title={"calculate"} handleClick={handleClick} />
-        {deliveryPrice.totalPrice !== 0 ? (
+        <CustomButton
+          title={"calculate"}
+          handleClick={handleClick}
+          disabled={disabled}
+        />
+        <Price deliveryPrice={deliveryPrice} handleOpen={handleOpen} />
+
+        {/*  {deliveryPrice.totalPrice !== 0 || cartValue >= 200 ? (
           <Price deliveryPrice={deliveryPrice} handleOpen={handleOpen} />
-        ) : null}
+        ) : null} */}
       </Paper>
       <InfoDialog
         open={open}
