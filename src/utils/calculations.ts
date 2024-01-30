@@ -2,12 +2,19 @@ import { Dayjs } from "dayjs";
 
 //using toFixed() on floats to avoid weird results
 
-export const calculateDeliveryPrice = (
-  cartValue: number,
-  numberOfItems: number,
-  distance: number,
-  dateTime: Dayjs
-): DeliveryPrice => {
+interface CalculateDeliveryPriceParams {
+  cartValue: number;
+  numberOfItems: number;
+  distance: number;
+  dateTime: Dayjs;
+}
+
+export const calculateDeliveryPrice = ({
+  cartValue,
+  numberOfItems,
+  distance,
+  dateTime,
+}: CalculateDeliveryPriceParams): DeliveryPrice => {
   const smallOrderSurcharge = calculateSmallOrderSurcharge(cartValue);
   const extraItemsFee = calculateItemsFee(numberOfItems);
   const distanceFee = calculateDistanceFee(distance);

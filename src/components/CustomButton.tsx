@@ -3,27 +3,25 @@ import { FC } from "react";
 
 interface ICustomButtonProps {
   title: string;
-  // handleClick: React.MouseEventHandler<HTMLButtonElement> | undefined;
   handleClick: () => void;
   disabled: boolean;
+  dataTestId?: string;
 }
 
 const CustomButton: FC<ICustomButtonProps> = ({
   title,
   handleClick,
   disabled,
+  dataTestId,
 }) => {
   return (
     <Button
       variant="contained"
       onClick={handleClick}
       disabled={disabled}
-      //color="primary"
+      data-test-id={dataTestId}
       sx={{
         fontWeight: "bold",
-        // width: "200px",
-        //backgroundColor: "#22c3e4",
-        // background: "linear-gradient(#22c3e4,#81DEFA)",
       }}
     >
       {title}

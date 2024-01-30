@@ -40,12 +40,12 @@ export const useCalculator = () => {
       return;
     }
 
-    const price = calculateDeliveryPrice(
-      cartValue,
-      numberOfItems,
-      distance,
-      time
-    );
+    const price = calculateDeliveryPrice({
+      cartValue: cartValue,
+      distance: distance,
+      numberOfItems: numberOfItems,
+      dateTime: time,
+    });
     setDeliveryPrice(price);
     setError(false);
   };

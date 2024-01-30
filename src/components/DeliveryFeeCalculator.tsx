@@ -67,12 +67,9 @@ const DeliveryFeeCalculator = () => {
           title={"calculate"}
           handleClick={handleClick}
           disabled={disabled}
+          dataTestId={"calculateButton"}
         />
         <Price deliveryPrice={deliveryPrice} handleOpen={handleOpen} />
-
-        {/*  {deliveryPrice.totalPrice !== 0 || cartValue >= 200 ? (
-          <Price deliveryPrice={deliveryPrice} handleOpen={handleOpen} />
-        ) : null} */}
       </Paper>
       <InfoDialog
         open={open}
