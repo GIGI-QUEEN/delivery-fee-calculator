@@ -1,30 +1,34 @@
-# React + TypeScript + Vite
+# Delivery Fee Calculator
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Delivery fee calculator is needed when a customer is ready with their shopping cart and we’d like to show them how much the delivery will cost. The delivery price depends on the cart value, the number of items in the cart, the time of the order, and the delivery distance.
 
-Currently, two official plugins are available:
+No ChatGPT was used during the development process!
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# Project installation and running
 
-## Expanding the ESLint configuration
+- run `npm install/yarn install`
+- run `npm run dev/yarn run dev`
+- open http://localhost:5173/
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## running tests
 
-- Configure the top-level `parserOptions` property like this:
+- `npm test/yarn test` (runs all tests)
+- `npm test -- --findRelatedTests __test__/calculations.test.ts` (runs tests that related to calculation functionality)
+- `npm test -- --findRelatedTests __test__/DeliveryCalculator.test.tsx` (runs tests that related to DeliveryCalculator component rendering)
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+# Techologies
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+**Core technologies**
+
+React + Typescript
+
+**libraries**
+
+- Material UI for components: https://mui.com/
+- Jest for testing
+- dayjs for working with dates
+
+# Links
+
+[Github](https://github.com/GIGI-QUEEN)
+[LinkedIn](https://www.linkedin.com/in/nikita-masalov/)
