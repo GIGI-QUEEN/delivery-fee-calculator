@@ -6,11 +6,13 @@ import { FC } from "react";
 interface ICustomDateTimePicker {
   time: dayjs.Dayjs;
   setTime: React.Dispatch<React.SetStateAction<dayjs.Dayjs>>;
+  dataTestId?: string;
 }
 
 export const CustomDateTimePicker: FC<ICustomDateTimePicker> = ({
   time,
   setTime,
+  dataTestId,
 }) => {
   return (
     <FormControl
@@ -22,7 +24,7 @@ export const CustomDateTimePicker: FC<ICustomDateTimePicker> = ({
         slotProps={{
           textField: {
             inputProps: {
-              "data-test-id": "orderTime",
+              "data-test-id": dataTestId,
             },
           },
         }}

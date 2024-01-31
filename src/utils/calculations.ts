@@ -84,7 +84,6 @@ export const calculateDistanceFee = (distance: number): number => {
   const pureDistance = distance - 1000;
   const multiplier = Math.ceil(pureDistance / 500);
 
-  // console.log("distance price: ", baseFee + multiplier);
   return baseFee + multiplier;
 };
 

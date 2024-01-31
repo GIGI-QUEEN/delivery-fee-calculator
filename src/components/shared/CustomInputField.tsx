@@ -12,7 +12,6 @@ interface ICustomTextInputField {
   inputAdornment?: string;
   setStateValue: React.Dispatch<React.SetStateAction<number>>;
   dataTestId?: string;
-  required: boolean;
   error: boolean;
 }
 
@@ -21,7 +20,6 @@ const CustomInputField: FC<ICustomTextInputField> = ({
   inputAdornment,
   setStateValue,
   dataTestId: testId,
-  required,
   error,
 }) => {
   return (
@@ -31,7 +29,6 @@ const CustomInputField: FC<ICustomTextInputField> = ({
       </InputLabel>
       <OutlinedInput
         error={error}
-        required={required}
         type="number"
         inputProps={{
           "data-test-id": testId, //adding custom attribute with test-id to the input field inside OutlinedInput

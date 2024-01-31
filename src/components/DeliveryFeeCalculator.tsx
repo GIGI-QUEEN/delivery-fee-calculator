@@ -1,10 +1,10 @@
 import { Paper, Typography } from "@mui/material";
-import CustomButton from "./CustomButton";
-import CustomInputField from "./CustomInputField";
-import { CustomDateTimePicker } from "./CustomDatePicker";
+import CustomButton from "./shared/CustomButton";
+import CustomInputField from "./shared/CustomInputField";
+import { CustomDateTimePicker } from "./shared/CustomDatePicker";
 import { useCalculator } from "../hooks/useCalculator";
 import { useDialog } from "../hooks/useDialog";
-import InfoDialog from "./InfoDialog";
+import InfoDialog from "./InfoDialog/InfoDialog";
 import { Price } from "./Price";
 import { euroSign } from "../constants/constants";
 
@@ -44,7 +44,6 @@ const DeliveryFeeCalculator = () => {
           placeholder="cart value"
           inputAdornment={euroSign}
           setStateValue={setCartValue}
-          required={true}
           error={error}
         />
         <CustomInputField
@@ -52,17 +51,19 @@ const DeliveryFeeCalculator = () => {
           placeholder="delivery distance"
           inputAdornment="m"
           setStateValue={setDistance}
-          required={true}
           error={error}
         />
         <CustomInputField
           dataTestId="numberOfItems"
           placeholder="number of items"
           setStateValue={setNumberOfItems}
-          required={true}
           error={error}
         />
-        <CustomDateTimePicker time={time} setTime={setTime} />
+        <CustomDateTimePicker
+          time={time}
+          setTime={setTime}
+          dataTestId={"orderTime"}
+        />
         <CustomButton
           title={"calculate"}
           handleClick={handleClick}
