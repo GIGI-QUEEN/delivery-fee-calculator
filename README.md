@@ -9,7 +9,7 @@ No ChatGPT was used during the development process!
 - Ensure Node.js is installed
 - run `npm install/yarn install`
 - run `npm run dev/yarn run dev`
-- open http://localhost:5173/
+- open the link from terminal (usually it will be http://localhost:5173/)
 
 ## running tests
 
